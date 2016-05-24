@@ -1,0 +1,18 @@
+brimir:
+  build: .
+  ports:
+    - "3000:3000"
+  links:
+    - mysql
+  volumes:
+    - .:/opt/docker-brimir
+  entrypoint: /opt/docker-brimir/script/docker-entrypoint.sh
+  environment:
+    RAILS_SERVE_STATIC_FILES: true
+mysql:
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: tmppwd
+    MYSQL_USER: brimir_dev
+    MYSQL_PASSWORD: brimir
+    MYSQL_DATABASE: brimir_dev
