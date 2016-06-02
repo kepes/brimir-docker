@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: brimir
+spec:
+  replicas: 1
+  selector:
+    app: brimir
+  template:
+    metadata:
+      labels:
+        app: brimir
+    spec:
+      nodeSelector:
+        env: production
+      containers:
+      - name: brimir-rails
+        image: kepes/brimir-docker
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        env:
+          - name: RAILS_SERVE_STATIC_FILES
+            value: 'true'
+          - name: MYSQL_HOST
+            value: 127.0.0.1
+          - name: MYSQL_DATABASE
+            value: brimir_prod
+          - name: MYSQL_USER
+            value: brimir_prod
+          - name: MYSQL_PASSWORD
+            value: tmppwd
+        volumeMounts:
+          - name: brimir-var-log
+            mountPath: /var/log/unicorn
+      - name: brimir-mysql
+        image: mysql
+        command: ["mysqld","--character-set-server=utf8", "--collation-server=utf8_unicode_ci"]
+        env:
+          - name: MYSQL_DATABASE
+            value: brimir_prod
+          - name: MYSQL_ROOT_PASSWORD
+            value: tmppwd
+          - name: MYSQL_USER
+            value: brimir_prod
+          - name: MYSQL_PASSWORD
+            value: tmppwd
+        volumeMounts:
+          - name: brimir-mysql-data
+            mountPath: /var/lib/mysql
+      volumes:
+        - name: brimir-mysql-data
+          hostPath:
+            path: /var/lib/docker/volumes/brimir-mysql-data
+        - name: brimir-var-log
+          hostPath:
+            path: /var/lib/docker/volumes/brimir-var-log
+      securityContext:
+        fsGroup: 1234
+        supplementalGroups: [5678]
+        seLinuxOptions:
+          level: "s0:c123,c456"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: brimir
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+  type: "NodePort"
+  externalIPs: [ "185.51.67.26"]
+  selector:
+    app: brimir
