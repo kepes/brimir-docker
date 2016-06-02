@@ -6,13 +6,24 @@ brimir:
     - mysql
   volumes:
     - .:/opt/docker-brimir
+    - ./tmp:/var/log/unicorn
   entrypoint: /opt/docker-brimir/script/docker-entrypoint.sh
   environment:
     RAILS_SERVE_STATIC_FILES: true
 mysql:
   image: mysql
+  command: ["mysqld","--character-set-server=utf8", "--collation-server=utf8_unicode_ci"]
   environment:
     MYSQL_ROOT_PASSWORD: tmppwd
     MYSQL_USER: brimir_dev
     MYSQL_PASSWORD: brimir
     MYSQL_DATABASE: brimir_dev
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  ports: ["8080:80"]
+  links:
+    - mysql
+  environment:
+    PMA_HOST: mysql
+    PMA_USER: brimir_dev
+    PMA_PASSWORD: brimir
