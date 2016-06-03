@@ -30,12 +30,22 @@ spec:
             value: brimir_prod
           - name: MYSQL_PASSWORD
             value: tmppwd
+          - name: SMTP_ADDRESS
+            value: change_it_please
+          - name: SMTP_PORT
+            value: change_it_please
+          - name: SMTP_DOMAIN
+            value: change_it_please
+          - name: SMTP_USERNAME
+            value: change_it_please
+          - name: SMTP_PASSWORD
+            value: change_it_please
         volumeMounts:
           - name: brimir-var-log
             mountPath: /var/log/unicorn
       - name: brimir-mysql
         image: mysql
-        command: ["mysqld","--character-set-server=utf8", "--collation-server=utf8_unicode_ci"]
+        args: ["--character-set-server=utf8", "--collation-server=utf8_unicode_ci"]
         env:
           - name: MYSQL_DATABASE
             value: brimir_prod
