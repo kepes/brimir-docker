@@ -18,19 +18,30 @@ Meybe I will do docker-compose config later for it.
 $ docker run --name my-brimir -e MYSQL_HOST=localhost -e MYSQL_DATABASE=brimir -e MYSQL_USER=brimir -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
 ```
 
+## Login info
+
+* Username: agent@getbrimir.com
+* Password: tmppwd
+
 ## Environment variables
 
-Name              | Default             | Value
------------------ | ------------------- | -------------
-MYSQL_HOST        | mysql               | Mysql server hostname
-MYSQL_DATABASE    | -                   | Mysql database name
-MYSQL_USER        | -                   | Mysql database username
-MYSQL_PASSWORD    | -                   | Mysql Password
-UNICORN_WORKERS   | 2                   | Number of Unicorn workers
-UNICORN_TIMEOUT   | 30                  | Timeout of unicorn
-UNICORN_PORT      | 3000                | Unicorn port number
-RAILS_ENV         | production          | Rails environment
-SECRET_KEY_BASE   | change_it_please    | Secret key base for Rails
+Name                | Default             | Value
+------------------- | ------------------- | -------------
+MYSQL_HOST          | mysql               | Mysql server hostname
+MYSQL_DATABASE      | -                   | Mysql database name
+MYSQL_USER          | -                   | Mysql database username
+MYSQL_PASSWORD      | -                   | Mysql Password
+UNICORN_WORKERS     | 2                   | Number of Unicorn workers
+UNICORN_TIMEOUT     | 30                  | Timeout of unicorn
+UNICORN_PORT        | 3000                | Unicorn port number
+RAILS_ENV           | production          | Rails environment
+SECRET_KEY_BASE     | change_it_please    | Secret key base for Rails
+SMTP_ADDRESS        | -                   | SMTP server address
+SMTP_PORT           | -                   | SMTP port
+SMTP_DOMAIN         | -                   | Domain name for SMTP HELLO
+SMTP_USERNAME       | -                   | SMTP username
+SMTP_PASSWORD       | -                   | SMTP password
+SMTP_AUTHENTICATION | palin               | SMTP auth type
 
 ## Use it with `docker-compose`
 
