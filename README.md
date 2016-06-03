@@ -15,7 +15,7 @@ Meybe I will do docker-compose config later for it.
 
 # How to use this image
 ```
-$ docker run --name my-brimir -e MYSQL_HOST=localhost -e MYSQL_DATABASE=brimir -e MYSQL_USER=brimir -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+$ docker run --name my-brimir -e MYSQL_HOST=localhost -e MYSQL_DATABASE=brimir -e MYSQL_USER=brimir -e MYSQL_ROOT_PASSWORD=my-secret-pw -d kepes/brimir-docker
 ```
 
 ## Login info
